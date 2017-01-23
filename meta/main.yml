@@ -2,7 +2,7 @@
 galaxy_info:
   author: pablerass
   description: 
-  license: GPLv3
+  license: LGPLv3
   min_ansible_version: 1.9
   platforms:
   - name: Ubuntu
@@ -12,4 +12,3 @@ galaxy_info:
   - development
   - system
 dependencies: []
-  
