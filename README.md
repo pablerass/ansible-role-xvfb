@@ -14,7 +14,7 @@ graphics operations in memory without using an screen.
 
     - hosts: servers
       roles:
-         - { role: xvfb }
+         - { role: xvfb, xvfb_display: ':99' }
 
 ## License
 
