@@ -3,7 +3,6 @@
 - name: "Install Xvfb package"
   apt:  name=xvfb
         state=installed
-  when: ansible_os_family == 'Debian'
 
 - name: "Create Xvfb deamon script"
   template:
