@@ -23,10 +23,18 @@
         src=profile-xvfb.sh.j2
         dest=/etc/profile.d/xvfb.sh
 
-- name: "Configure Xvfb automatic startup"
+- name: "Configure Xvfb automatic startup < 16.04"
   service:
         name=xvfb
         pattern=/usr/bin/Xvfb
         enabled=yes
         state=started
+  when: "{{ ansible_distribution_version | version_compare('16.04', '<') }}"      
+
+- name: "Configure Xvfb automatic startup >= 16.04"
+  service:
+        name=xvfb
+        enabled=yes
+        state=started        
+  when: "{{ ansible_distribution_version | version_compare('16.04', '>=') }}"
 
