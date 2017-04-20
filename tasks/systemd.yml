@@ -1,0 +1,14 @@
+---
+- name: "systemd - Create Xvfb deamon configuration"
+  template:
+        src=systemd-xvfb.j2
+        dest=/etc/systemd/system/xvfb.service
+        mode=755
+
+- name: "systemd - Configure Xvfb automatic startup >= 16.04"
+  service:
+        name=xvfb
+        enabled=yes
+        state=started
+
+

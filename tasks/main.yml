@@ -1,40 +1,20 @@
 ---
 # tasks file for xvfb
 - name: "Install Xvfb package"
-  apt:  name=xvfb
-        state=installed
+  apt:  
+    name: xvfb
+    state: installed
 
-- name: "Create Xvfb deamon script"
-  template:
-        src=init-xvfb.j2
-        dest=/etc/init.d/xvfb
-        mode=755
-  when: ansible_distribution_version == "12.04"
+- name: Install for systemV
+  include: systemv.yml
+  when: ansible_service_mgr != "systemd"
 
-- name: "Create Xvfb deamon configuration"
-  template:
-        src=systemd-xvfb.j2
-        dest=/etc/systemd/system/xvfb.service
-        mode=755
-  when: ansible_distribution_version == "16.04"
+- name: Install for systemd
+  include: systemd.yml
+  when: ansible_service_mgr == "systemd"
 
 - name: "Configure display environment variable"
   template:
-        src=profile-xvfb.sh.j2
-        dest=/etc/profile.d/xvfb.sh
-
-- name: "Configure Xvfb automatic startup < 16.04"
-  service:
-        name=xvfb
-        pattern=/usr/bin/Xvfb
-        enabled=yes
-        state=started
-  when: "ansible_distribution_version | version_compare('16.04', '<') "
-
-- name: "Configure Xvfb automatic startup >= 16.04"
-  service:
-        name=xvfb
-        enabled=yes
-        state=started
-  when: "ansible_distribution_version | version_compare('16.04', '>=') "
+    src: profile-xvfb.sh.j2
+    dest: /etc/profile.d/xvfb.sh
 
