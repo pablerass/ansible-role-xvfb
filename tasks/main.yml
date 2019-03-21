@@ -22,7 +22,7 @@
         src=systemd-xvfb.j2
         dest=/etc/systemd/system/xvfb.service
         mode=755
-  when: ansible_distribution_version == "16.04"
+  when: ansible_distribution_version == "16.04" or ansible_distribution_version == "18.04"
 
 - name: "Configure display environment variable"
   template:
